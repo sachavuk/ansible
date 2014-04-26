@@ -1,0 +1,15 @@
+- name: add epel repo
+  command: >
+     rpm -i http://epel.mirror.net.in/epel/6Server/x86_64/epel-release-6-8.noarch.rpm
+     creates='/var/lib/yum/repos/x86_64/6/epel'
+
+- name: ensure that items is installed
+  yum: pkg={{ item }} state=installed 
+  with_items:
+     - atop
+     - ntp
+     - unzip
+     - vim
+
+
+

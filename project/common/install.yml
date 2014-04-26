@@ -1,0 +1,6 @@
+
+- hosts: srv-tux2
+
+  user: root
+  roles:  
+   - common

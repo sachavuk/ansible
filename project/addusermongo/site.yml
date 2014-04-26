@@ -1,0 +1,9 @@
+
+- hosts: srv-tux4
+
+  user: root
+  tasks:
+    - name: add package to mongo
+      apt: pkg=python-pymongo state=installed 
+    - name: add user to database
+      mongodb_user: database=foo name=bob password=12345 state=present login_user=root login_password=toor

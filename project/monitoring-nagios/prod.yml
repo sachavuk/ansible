@@ -1,0 +1,67 @@
+
+- hosts: nagios-server
+  user: root
+  roles:  
+   - nagios 
+   - apache2
+   - nrpe
+   - common
+  tags: config
+
+- hosts: nagios
+  user: root
+  roles: 
+   - nrpe
+  tags: nagiosconfig
+
+- hosts: nagios-server
+  user: root
+
+  vars_files:
+    - vars/common.yml
+    - vars/servicesnagios.yml
+
+  tasks:
+
+     - name: update apt
+       apt: update_cache=yes
+
+     - name: create directory for Apache vhosts logs
+       file: path="/home/logs/apache2" state=directory
+       tags: log
+
+     - name: ensure php5 is installed
+       apt: pkg="php5" state=installed
+       tags: php
+
+     - name: install nrpe tools 
+       apt: pkg="nagios-nrpe-plugin" state=installed
+
+     - name: set vhost
+       template: src="templates/{{item}}.j2" dest="/etc/apache2/sites-available/{{item}}"
+       with_items:
+          - nagios.sacha.net
+
+     - name: activate vhost
+       command: a2ensite {{item}} creates="/etc/apache2/sites-enabled/{{item}}"
+       with_items:
+          - nagios.sacha.net
+
+     - name: reload apacha service
+       service: name=apache2 state=reloaded
+
+     - name: Reload apache service
+       service: name=apache2 state=reloaded 
+
+     - name: Copy specific nagios files
+       template: src="templates/{{item}}.j2" dest="/etc/nagios3/conf.d/{{item}}"
+       with_items:
+          - new_commands.cfg
+          - services.cfg
+          - nodes.cfg
+          - hostgroups.cfg
+       tags: nagiosconfig
+ 
+     - name: restart nagios
+       service: name=nagios3 state=restarted 
+       tags: nagiosconfig

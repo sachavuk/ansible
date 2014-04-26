@@ -1,0 +1,15 @@
+- name: install nagios
+  apt: pkg=nagios3-cgi,nagios3 state=installed
+- name: install nagios-plugins
+  apt: pkg=nagios-plugins state=installed
+- name: Delete nagios vhost symlik created by package installation script
+  file: src="/etc/nagios3/apache2.conf" path="/etc/apache2/conf.d/nagios3.conf" state=absent
+  notify: Reload Apache
+- name: Disable cgi auth as auth is IP source based in vhost
+  lineinfile: dest="/etc/nagios3/cgi.cfg" regexp="^use_authentication=" line="use_authentication=0"
+- name: copy contact config file into dir conf.d
+  template: src="{{item}}.j2" dest="/etc/nagios3/conf.d/{{item}}"
+  with_items:
+    - contacts_nagios2.cfg
+  notify: reload nagios
+

@@ -1,0 +1,13 @@
+
+- name: Install nrpe package (RedHat based)
+  action: yum name={{item}} state=installed
+  with_items:
+     - nagios-plugins-all
+     - nrpe
+
+- name: copy template config file
+  template: src=nrpe.cfg.j2 dest=/etc/nagios/nrpe.cfg backup=yes
+  notify: Restart Nrpe
+
+- name: ensure that plugins owner nagios
+  file: path=/usr/lib/nagios owner=nagios group=nagios

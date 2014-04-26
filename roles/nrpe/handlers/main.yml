@@ -1,0 +1,5 @@
+- name: Restart Nrpe
+  service: name={{ nrpe_service}} state=restarted
+
+- name: Reload Nrpe
+  service: name={{ nrpe_service }} state=reloaded

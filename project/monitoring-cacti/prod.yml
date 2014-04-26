@@ -1,0 +1,11 @@
+
+- hosts: srv-tux3
+  user: root
+  roles:  
+   -  cacti 
+  tags: cacti
+- hosts: srv-tux2
+  user: root
+  roles:
+   - snmpd
+  tags: snmpd

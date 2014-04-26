@@ -1,0 +1,7 @@
+
+- name: Install snmpd package (Debian based)
+  apt: pkg=snmpd state=installed update_cache=yes
+
+- name: copy template config file
+  template: src=snmpd.conf.j2 dest=/etc/snmp/snmpd.conf backup=yes
+  notify: Restart Snmpd

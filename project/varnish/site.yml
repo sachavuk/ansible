@@ -1,0 +1,7 @@
+
+- hosts: varnish-host
+  user: root
+  roles:  
+   - { role: common }
+   - { role: varnish, tags: 'varnish' }
+

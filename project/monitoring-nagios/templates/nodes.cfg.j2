@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+{% for host in groups['nagios'] %}
+	define host {
+	use generic-host	
+	host_name {{ host }}
+	alias {{ host }}
+	address {{ hostvars[host].ansible_default_ipv4.address }}
+        
+}
+{% endfor %}

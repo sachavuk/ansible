@@ -1,0 +1,10 @@
+
+- hosts: srv-tux4
+
+  user: root
+  roles:  
+   - common
+   - apache2
+   - php5
+   - varnish
+

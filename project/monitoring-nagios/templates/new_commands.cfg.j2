@@ -1,0 +1,51 @@
+define command {
+   command_name http_vhost
+   command_line $USER1$/check_http -H $ARG1$
+}
+
+define command {
+   command_name http_vhost_port
+   command_line $USER1$/check_http -H $ARG1$ -p $ARG2$
+}
+
+define command {
+   command_name https_vhost_port
+   command_line $USER1$/check_http -S -H $ARG1$ -p $ARG2$
+}
+
+define command{
+  command_name check_snmp_storage_v1
+  command_line $USER1$/check_snmp_storage.pl -H $HOSTADDRESS$ -C public -m $ARG1$ -w $ARG2$ -c $ARG3$
+}
+
+define command{
+  command_name check_snmp_process
+  command_line $USER1$/check_snmp_process.pl -H $HOSTADDRESS$ -C public -n $ARG1$ -A 
+}
+
+define command{
+  command_name check_snmp_tomcat
+  command_line $USER1$/check_snmp_process.pl -H $HOSTADDRESS$ -C public -n java -A -w $ARG2$ -c $ARG3$
+}
+
+
+define command {
+   command_name check_dns_resolve
+   command_line $USER1$/check_dns -H $ARG1$
+}
+
+define command {
+   command_name check_dns_ip
+   command_line $USER1$/check_dns -H $ARG1$ -a $ARG2$
+}
+
+define command {
+   command_name check_port_open
+   command_line $USER1$/check_port.pl -H $ARG1$ -p $ARG2$ -v
+}
+
+define command{
+command_name check_smart
+command_line $USER1$/check_snmp -H $HOSTADDRESS$ -C public -o $ARG1$ -r $ARG2$
+}
+

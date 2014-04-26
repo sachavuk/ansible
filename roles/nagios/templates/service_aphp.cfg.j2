@@ -1,0 +1,38 @@
+define host{
+   use         generic-host            ; Name of host template to use
+   host_name   APHP
+   alias       bioloinc-webserv.aphp.fr 
+   address     164.2.188.1 
+}
+
+define service {
+   host_name APHP
+   service_description Check DNS for bioloinc-webserv.aphp.fr
+   check_command check_dns_ip!bioloinc-webserv.aphp.fr!164.2.188.1
+   use                             generic-service
+   notification_interval           0 ; set > 0 if you want to be renotified
+}
+
+define service {
+   host_name APHP
+   service_description Check port 8443 is open on bioloinc-webserv.aphp.fr
+   check_command check_port_open!bioloinc-webserv.aphp.fr!8443
+   use                             generic-service
+   notification_interval           0 ; set > 0 if you want to be renotified
+}
+
+define service {
+   host_name APHP
+   service_description Check port 22 is open on bioloinc-webserv.aphp.fr
+   check_command check_port_open!bioloinc-webserv.aphp.fr!22
+   use                             generic-service
+   notification_interval           0 ; set > 0 if you want to be renotified
+}
+
+define service {
+   host_name APHP
+   service_description Check webservice at bioloinc-webserv.aphp.fr:8443 
+   check_command https_vhost_port!bioloinc-webserv.aphp.fr!8443
+   use                             generic-service
+   notification_interval           0 ; set > 0 if you want to be renotified
+}

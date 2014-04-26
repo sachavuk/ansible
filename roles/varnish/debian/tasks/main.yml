@@ -1,0 +1,2 @@
+- name: ensure varnish is installed
+  apt: pkg=varnish state=installed

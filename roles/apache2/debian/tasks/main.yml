@@ -1,0 +1,14 @@
+- name: ensure apache is installed
+  apt: pkg=apache2 state=installed
+
+- name: copy apache.conf 
+  template: src=apache2.conf.j2 dest=/etc/apache2/apache2.conf backup=yes
+
+- name: ensure apache is running
+  service: name=apache2 state=started
+
+- name: install module apache 
+  command: a2enmod {{item}}  creates="/etc/apache2/mods-enabled/{{item}}.load"
+  with_items: mods_list
+  notify: Restart Apache
+  when: mods_list is defined

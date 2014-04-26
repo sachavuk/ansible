@@ -1,0 +1,5 @@
+- name: Restart Varnish
+  service: name={{ varnish_service}} state=restarted
+
+- name: Reload Varnish
+  service: name={{ varnish_service }} state=reloaded

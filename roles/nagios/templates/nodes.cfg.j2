@@ -1,0 +1,16 @@
+# A simple configuration file for monitoring the local host
+# This can serve as an example for configuring other servers;
+# Custom services specific to this host are added here, but services
+# defined in nagios2-common_services.cfg may also apply.
+# 
+
+   {% for node in nodes %}
+        define host{
+        use                     generic-host            ; Name of host template to use
+        host_name               {{node.hostname}}
+        alias                   {{node.hostname}}
+        address 	        {{ hostvars[node.hostname].ansible_default_ipv4.address }}
+        }      
+
+   {% endfor %}
+

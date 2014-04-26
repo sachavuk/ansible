@@ -1,0 +1,15 @@
+- name: update apt
+  apt: update_cache=yes
+
+- name: Install nrpe package (Debian based)
+  action: apt pkg={{item}} state=installed
+  with_items:
+     - nagios-plugins
+     - nagios-nrpe-server
+
+- name: copy template config file
+  template: src=nrpe.cfg.j2 dest=/etc/nagios/nrpe.cfg backup=yes
+  notify: Restart Nrpe
+
+- name: ensure that plugins owner nagios
+  file: path=/usr/lib/nagios owner=nagios group=nagios

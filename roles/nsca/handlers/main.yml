@@ -1,0 +1,5 @@
+- name: Restart Nsca
+  service: name={{ nsca_service}} state=restarted
+
+- name: Reload Nsca
+  service: name={{ nsca_service }} state=reloaded

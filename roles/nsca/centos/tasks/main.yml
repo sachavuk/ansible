@@ -1,0 +1,4 @@
+
+- name: Install nsca package (RedHat based)
+  yum: name=nsca state=installed
+

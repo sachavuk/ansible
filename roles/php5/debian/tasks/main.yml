@@ -1,0 +1,10 @@
+
+- name: Install php package (Debian based)
+  apt: pkg=php5 state=installed update_cache=yes
+
+
+- name: Install php module
+  apt: pkg={{ module_php }} state=installed
+  with_items: module_php
+  notify: Restart Apache
+  when: module_php is defined 

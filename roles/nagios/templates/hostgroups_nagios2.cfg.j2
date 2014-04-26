@@ -1,0 +1,13 @@
+# Some generic hostgroup definitions
+
+ {% for group in groupsnagios %}
+        define hostgroup {
+                hostgroup_name  {{group.hostgroup_name}}
+                alias           {{group.alias}}
+                members         {{group.members}}
+        }
+    
+
+ {% endfor %}
+
+

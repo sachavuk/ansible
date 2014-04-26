@@ -1,0 +1,5 @@
+- name: Restart Snmpd
+  service: name={{ snmpd_service}} state=restarted
+
+- name: Reload Snmpd
+  service: name={{ snmpd_service }} state=reloaded

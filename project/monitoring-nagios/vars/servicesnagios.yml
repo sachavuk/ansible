@@ -1,0 +1,10 @@
+---
+servicesnagios:
+   - 
+     hostgroup_name:  "all"
+     service_description: "Check if SSH is UP"
+     check_command: "check_ssh"
+   -
+     hostgroup_name:  "all"
+     service_description: "Check disk space on nodes"
+     check_command: "check_nrpe_1arg!check_disk"

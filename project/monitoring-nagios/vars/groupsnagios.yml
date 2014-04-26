@@ -1,0 +1,23 @@
+---
+groupsnagios:
+   - 
+     hostgroup_name:  "all"
+     alias:           "All Servers"
+     members:         "*, !localhost"
+   - 
+     hostgroup_name:  "http-servers"
+     alias:           "HTTP servers"
+     members:         "localhost "
+   - 
+     hostgroup_name:  "ssh-servers"
+     alias:           "SSH servers"
+     members:         "localhost"
+   -
+     hostgroup_name:  "debian-servers"
+     alias:           "Debian GNU/Linux Servers"
+     members:         "localhost" 
+   -
+     hostgroup_name:  "localhost"
+     alias:           "localhost"
+     members:         "localhost"
+

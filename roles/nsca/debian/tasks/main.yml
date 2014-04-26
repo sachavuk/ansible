@@ -1,0 +1,8 @@
+
+- name: Install nsca package (Debian based)
+  apt: pkg=nsca state=installed update_cache=yes
+
+- name: copy template config file
+  template: src=nsca.cfg.j2 dest=/etc/nsca.cfg backup=yes owner=nagios group=nagios
+  notify: Restart Nsca
+
