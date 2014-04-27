@@ -25,8 +25,6 @@ You can specified another value for this variables in your inventory file , the 
     http_tomcat: Tomcat http port for connector http default value 8080
     ajp_tomcat: Tomcat ajp port for connector ajp default value 8009
     tomcat_classpath: Specified a classpath for tomcat load jar files, optional
-    tomcat_classpath_apirest: Classpath for project apirest, defined only for apirest projects. 
-    
 
 ## Dependencies
 

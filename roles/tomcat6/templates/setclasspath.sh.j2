@@ -23,11 +23,6 @@
 CLASSPATH={{ tomcat_classpath }}
 {% endif %}
 
-{% if tomcat_classpath_apirest is defined and tomcat_classpath_apirest == 'true' %}
-CLASSPATH={{product_dir}}/donnees:{{product_dir}}/fr:{{product_dir}}/ae:{{product_dir}}/sa:{{product_dir}}/es:{{product_dir}}/mx:{{product_dir}}/cl:{{product_dir}}/hp:{{product_dir}}/pt
-{% endif %}
-
-
 # Make sure prerequisite environment variables are set
 if [ -z "$JAVA_HOME" -a -z "$JRE_HOME" ]; then
   if $darwin; then
