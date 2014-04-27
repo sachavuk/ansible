@@ -34,5 +34,5 @@
 - name: copy logrotate conf for tomcat
   template: src=logrotate_template.j2 dest='/etc/logrotate.d/tomcat_{{ product_name }}' mode=0644 
 
-- name:  copy init script for tomcat
+- name: copy init script for tomcat
   template: src=tomcat-init.j2 dest='/etc/init.d/{{ product_name }}' mode=0754 
