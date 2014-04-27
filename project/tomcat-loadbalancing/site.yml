@@ -1,0 +1,16 @@
+
+- hosts: webserver
+  user: root
+  roles:  
+   - { role: webtier, tags: 'webtier' }
+
+- hosts: tomcatserver
+  user: root
+  roles:  
+   - { role: tomtier, tags: 'tomtier' }
+#  tasks:
+#    - name: install java 7
+#      apt: pkg=openjdk-7-jdk state=installed
+#    
+#    - name: ensure openjdk-7-jre is installed
+#      apt: pkg=openjdk-7-jre state=installed

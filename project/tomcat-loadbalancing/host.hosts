@@ -1,0 +1,16 @@
+[webserver]
+srv-tux1
+
+[webserver:vars]
+
+[tomcatserver]
+srv-tux2
+srv-tux3
+
+[tomcatserver:vars]
+user_tomcat='tomcat'
+product_dir='/home/produits/apisoap'
+product_name='apisoap'
+JAVA_OPTS='-Xms512m -Xmx512m -XX:PermSize=256m  -XX:MaxPermSize=128m'
+tomcat_address='0.0.0.0'
+

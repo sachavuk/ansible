@@ -1,0 +1,3 @@
+dependencies:
+- { role: java, java_version: '7' }
+- { role: tomcat6 }
