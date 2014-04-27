@@ -1,3 +1,4 @@
+- debug: msg="java {{ java_version }}" 
 - name: Accept java license
   action: shell echo 'sun-java6-jre shared/accepted-sun-dlj-v1-1 select true' | /usr/bin/debconf-set-selections 
   when: java_version == "6"

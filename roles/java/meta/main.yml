@@ -1,3 +1,4 @@
+---
 dependencies:
   - { role: java/debian, when: "ansible_os_family == 'Debian'" }
   - { role: java/centos, when: "ansible_os_family == 'RedHat'" } 
