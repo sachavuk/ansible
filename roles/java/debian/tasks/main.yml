@@ -1,0 +1,24 @@
+- name: Accept java license
+  action: shell echo 'sun-java6-jre shared/accepted-sun-dlj-v1-1 select true' | /usr/bin/debconf-set-selections 
+  when: java_version == "6"
+
+- name: ensure sun-java-jre  is installed
+  apt: force=yes pkg=sun-java6-jdk state=installed
+  when: java_version == "6"
+
+- name: Accept java license
+  action: shell echo 'sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true' | /usr/bin/debconf-set-selections 
+  when: java_version == "6"
+
+- name: ensure sun-java6-jdk is installed
+  apt: force=yes pkg=sun-java6-jre state=installed
+  when: java_version == "6"
+
+- name: ensure openjdk-7-jdk is installed
+  apt: pkg=openjdk-7-jdk state=installed
+  when: java_version == "7"
+
+- name: ensure openjdk-7-jre is installed
+  apt: pkg=openjdk-7-jre state=installed
+  when: java_version == "7"
+
