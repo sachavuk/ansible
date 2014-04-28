@@ -1,0 +1,2 @@
+- name: restart_mysql_debian
+  service: name=mysql state=restarted

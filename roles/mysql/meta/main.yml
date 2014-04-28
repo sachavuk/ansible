@@ -1,0 +1,3 @@
+dependencies:
+  - { role: mysql/debian, when: "ansible_os_family == 'Debian'" }
+  - { role: mysql/centos, when: "ansible_os_family == 'RedHat'" } 

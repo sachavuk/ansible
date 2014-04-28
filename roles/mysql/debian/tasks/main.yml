@@ -1,0 +1,11 @@
+- name: ensure mysql is installed
+  apt: pkg=mysql-server state=installed
+
+- name: ensure that python-mysqldb is installed
+  apt: pkg=python-mysqldb state=installed
+
+- name: copy config file my.cnf 
+  template: src='my.cnf.j2' dest='/etc/mysql/my.cnf' backup=yes
+  notify: Restart MySQL
+
+
