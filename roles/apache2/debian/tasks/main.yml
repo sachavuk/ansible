@@ -2,7 +2,10 @@
   apt: pkg=apache2 state=installed
 
 - name: copy apache.conf 
-  template: src=apache2.conf.j2 dest=/etc/apache2/apache2.conf backup=yes
+  template: src={{ item }}.j2 dest=/etc/apache2/{{ item }} backup=yes
+  with_items: 
+     - apache2.conf
+     - ports.conf 
 
 - name: ensure apache is running
   service: name=apache2 state=started
