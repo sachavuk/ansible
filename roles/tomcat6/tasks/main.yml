@@ -36,3 +36,6 @@
 
 - name: copy init script for tomcat
   template: src=tomcat-init.j2 dest='/etc/init.d/{{ product_name }}' mode=0754 
+
+- name: 'enabled service tomcat'
+  service: name={{ product_name}} state=started enabled=yes
