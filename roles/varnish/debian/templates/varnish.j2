@@ -1,50 +1,40 @@
 # Configuration file for varnish
-# {{ ansible_managed }}
-# /etc/init.d/varnish expects the variable $DAEMON_OPTS to be set from this
-# shell script fragment.
 #
+# /etc/init.d/varnish expects the variables $DAEMON_OPTS, $NFILES and $MEMLOCK
+# to be set from this shell script fragment.
+#
+# Note: If systemd is installed, this file is obsolete and ignored.  You will
+# need to copy /lib/systemd/system/varnish.service to /etc/systemd/system/ and
+# edit that file.
+
+# Should we start varnishd at boot?  Set to "no" to disable.
+START=yes
 
 # Maximum number of open files (for ulimit -n)
+NFILES={{ varnish_nfiles | default("131070") }}
 
-NFILES={{ varnish_nfiles | default("131072") }}
+# Maximum locked memory size (for ulimit -l)
+# Used for locking the shared memory log in memory.  If you increase log size,
+# you need to increase this number as well
+MEMLOCK={{ varnish_memlock | default ("82000") }}
 
-# Locked shared memory (for ulimit -l)
-# Default log size is 82MB + header
-MEMLOCK={{ varnish_memlock | default ("82000") }} 
-
-# Maximum number of threads (for ulimit -u)
-NPROCS="{{ varnish_nprocs | default ("unlimited") }}"
-
-# Maximum size of corefile (for ulimit -c). Default in Fedora is 0
-# DAEMON_COREFILE_LIMIT="unlimited"
-
-# Set this to 1 to make init script reload try to switch vcl without restart.
-# To make this work, you need to set the following variables
-# explicit: VARNISH_VCL_CONF, VARNISH_ADMIN_LISTEN_ADDRESS,
-# VARNISH_ADMIN_LISTEN_PORT, VARNISH_SECRET_FILE, or in short,
-# use Alternative 3, Advanced configuration, below
-RELOAD_VCL=1
-
-## Alternative 3, Advanced configuration
+# Default varnish instance name is the local nodename.  Can be overridden with
+# the -n switch, to have more instances on a single server.
+# INSTANCE=$(uname -n)
 #
 # See varnishd(1) for more information.
 #
 # # Main configuration file. You probably want to change it :)
-VARNISH_VCL_CONF={{ varnish_config_path }}/default.vcl
+VARNISH_VCL_CONF={{ varnish_config_path }}/varnish/default.vcl
 #
 # # Default address and port to bind to
 # # Blank address means all IPv4 and IPv6 interfaces, otherwise specify
 # # a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
-VARNISH_LISTEN_ADDRESS= {{ varnish_listen_address |default ("0.0.0.0") }}
-VARNISH_LISTEN_PORT={{ varnish_listen_port |default ("6081") }}
-#
-# # Telnet admin interface listen address and port
+VARNISH_LISTEN_ADDRESS={{ varnish_listen_address |default ("0.0.0.0") }} 
+VARNISH_LISTEN_PORT={{ varnish_listen_port |default ("6081") }} 
+## # Telnet admin interface listen address and port
 VARNISH_ADMIN_LISTEN_ADDRESS={{ varnish_admin_listen_address | default ("127.0.0.1") }}
 VARNISH_ADMIN_LISTEN_PORT={{ varnish_admin_listen_port | default ("6082") }}
-#
-# # Shared secret file for admin interface
-VARNISH_SECRET_FILE=/etc/varnish/secret
-#
 # # The minimum number of worker threads to start
 VARNISH_MIN_THREADS={{ varnish_min_threads | default ("50") }}
 #
@@ -67,15 +57,16 @@ VARNISH_STORAGE="{{ varnish_storage_type | default ("file") }},${VARNISH_STORAGE
 # # Default TTL used when the backend does not specify one
 VARNISH_TTL={{ varnish_ttl | default ("120") }}
 #
+# # File containing administration secret
+VARNISH_SECRET_FILE=/etc/varnish/secret
+# 
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
 DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
-             -f ${VARNISH_VCL_CONF} \
-             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
-             -t ${VARNISH_TTL} \
-             -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
-             -u varnish -g varnish \
-             -S ${VARNISH_SECRET_FILE} \
-             -s ${VARNISH_STORAGE}"
+              -f ${VARNISH_VCL_CONF} \
+              -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+              -t ${VARNISH_TTL} \
+              -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+ 	       -S ${VARNISH_SECRET_FILE} \
+              -s ${VARNISH_STORAGE}"
 #
-

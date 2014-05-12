@@ -1,0 +1,3 @@
+varnish_version: "3.0.5"
+varnish_vcl_file: "default.vcl"
+varnish_config_path: "/etc/varnish"
