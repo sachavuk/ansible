@@ -1,1 +1,0 @@
-- debug: msg="hello {{ ansible_os_family }}"
