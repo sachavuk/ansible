@@ -18,6 +18,8 @@ varnish_memlock: set number locked shared memory, default value '82000' (82 MB)
 
 varnish_nprocs: set maximum thread for varnish, default unlimited
 
+varnish_listen_address: set varnish listen address , default value 0.0.0.0
+
 varnish_listen_port: set varnish listen port, default value '6081'
 
 varnish_admin_listen_address: set ip adresse for varnishadm , default value '127.0.0.1'
