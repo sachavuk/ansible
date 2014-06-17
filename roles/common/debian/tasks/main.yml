@@ -1,11 +1,3 @@
-- name: set color console
-  copy: src="debian7_color_bash.bashrc" dest="/etc/bash.bashrc" mode=644
-  when: ansible_lsb.major_release == "7"
-
-- name: set color console for debian 6
-  copy: src="debian6_color_bash.bashrc" dest="/etc/bash.bashrc" mode=644
-  when: ansible_lsb.major_release == "6"
-
 - name: ensure that items is installed
   apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
@@ -13,6 +5,19 @@
      - ntp
      - unzip
      - vim
+     - lsb-release
+
+
+- name: copy vimrc
+  copy: src="vimrc" dest="/root/.vimrc" 
+
+- name: set color console
+  copy: src="debian7_color_bash.bashrc" dest="/etc/bash.bashrc" mode=644
+  when: ansible_lsb.major_release == "7"
+
+- name: set color console for debian 6
+  copy: src="debian6_color_bash.bashrc" dest="/etc/bash.bashrc" mode=644
+  when: ansible_lsb.major_release == "6"
 
 
 

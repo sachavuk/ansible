@@ -1,0 +1,8 @@
+
+- hosts: pmx-host
+  user: root
+  roles:  
+   - { role: common }
+  tasks:
+    - name: get template
+      get_url: url='http://download.openvz.org/template/precreated/debian-7.0-x86_64.tar.gz' dest='/var/lib/vz/template/cache'

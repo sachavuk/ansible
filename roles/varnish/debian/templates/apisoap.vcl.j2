@@ -1,0 +1,22 @@
+# This is a basic VCL configuration file for varnish.  See the vcl(7)
+# man page for details on VCL syntax and semantics.
+# 
+# Default backend definition.  Set this to point to your content
+# server.
+# 
+backend default {
+    .host = "127.0.0.1";
+    .port = "8011";
+}
+
+sub vcl_fetch {
+ set beresp.ttl = 5s;
+}
+
+if (req.request == "POST") {
+  return (lookup);
+ } else {
+  return (pass);
+ }
+}
+
